@@ -144,3 +144,47 @@ let precioP = document.getElementById("precioProducto");
 precioP.innerText = "precio: 450$";
 let titulo = document.querySelector("#nombreProducto");
 titulo.style.color = "red";
+
+let parrafo = document.createElement("p")
+parrafo.textContent = "chicharros"
+
+// forma 2 
+let contenedorDom = document.createElement("div")
+document.body.append(contenedorDom)
+
+let contenedor = document.getElementById("contenedor")
+
+document.body.appendChild(parrafo) //forma 1
+
+contenedorDom.remove() //forma 1
+//forma 2 - para desaparecer un conjunto grande rapidamente
+let algo = document.getElementById("algo")
+algo.remove();
+
+const productos = [
+    {titulo:"producto1", precio:15000,stock:20}
+    ,{titulo:"producto2", precio:15000,stock:10}
+    ,{titulo:"producto3", precio:15000,stock:0}
+]
+
+//for(let i = 0; i> productos.length ; i++){}
+
+productos.forEach((prod)=>{
+    let card = document.createElement("div")
+    card.classList.add("card")
+
+    let h2 = document.createElement("h2")
+    h2.textContent = prod.titulo
+
+    let p = document.createElement("p")
+    p.textContent = `$${prod.precio}`
+
+    if(prod.stock == 0){
+        card.style.background = "red"
+        p.innerHTML=`<s>${prod.precio}</s>`
+    }
+
+    contenedor.append(card)
+    card.appendChild(h2)
+    card.appendChild(p)
+})
