@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button id="add-to-cart-button">agregar al carrito</button>
+    <button id="cartButton">carrito de compras</button>
+
+
+    <script>
+        let cartItems = [];
+        const cartButton = document.getElementById('cartButton');
+        const cartModal = document.getElementById('cartModal');
+        const cartItemsContainer = document.getElementById('cartItems');+
+
+        cartButton.addEventListener('click', () => {
+        updateCartDisplay();
+        cartModal.style.display = 'block';
+        });
+
+        document.querySelector('.close').addEventListener('click', () => {
+        cartModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', event => {
+        if(event.target == cartModal) {
+        cartModal.style.display = 'none';
+            }
+        })
+
+        function addToCart(button, title, price) {
+    
+            const existingItem = cartItems.find(item => item.title === title);
+            if (existingItem) {
+                existingItem.quantity++; 
+                cartItems.push({ title, price, quantity: 1 }); 
+            }
+            updateCartDisplay();
+            updateCartCount();
+            button.textContent = 'Agregado';
+        }
+
+        function updateCartButton() {
+            const addButton = document.getElementById('add-to-cart-button');
+            addButton.textContent = 'Agregado';
+            addButton.classList.remove('btn-primary');
+            addButton.classList.add('btn-success');
+        }
+
+        function updateCartCount() {
+            const cartCountElement = document.getElementById('cartCount');
+            const totalCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = totalCount;
+        }
+
+        function removeFromCart(title) {
+            cartItems = cartItems.filter(item => item.title !== title);
+            updateCartDisplay();
+            updateCartCount(); // Llamar a la función para actualizar el número de productos en el carrito en la barra de navegación
+        }
+
+        function updateCarteDisplay() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            cartItemsContainer.innerHTML = ''; 
+            let total = 0;
+            carteItems.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            const cartItemElement = document.createElement('div');
+            cartItemElement.classList.add('cart-item');
+            cartItemElement.innerHTML = `
+            <p>${item.title} --> $${item.price} = $${itemTotal}</p>
+            <div class="quanty-controls">
+            <button class="quantity-btn" onclick="decrementQuantity('${item.title}')"></button>
+            <span class="quantity">${item.quantity}</span>
+            <button class="quantity-btn" onclick="incrementQuantity('${item.title}')"></button>
+            </div>
+            <button class="remove" onclick="removeFromCart('${item.title}')">Remove</button>
+            `;
+            cartItemsContainer.appendChild(cartItemElement);
+            });
+            const cartTotalElement = document.getElementById('cartTotal');
+            cartTotalElement.textContent = `$${total.toFixed(2)}`;
+        }
+
+        let currentQuantity = 1;
+        const decrementButton = document.getElementById('decrementQuantity');
+        const incrementButton = document.getElementById('icrementQuantity');
+        const quantityElement = document.getElementById('quantity');
+
+        function incrementQuantity(title) {
+            const item = cartItems.find(item => item.title === title);
+             if (item) {
+                item.quantity++;
+                updateCartDisplay();
+                updateCartCount();
+            }
+        }
+        function decrementQuantity(title) {
+            const item = cartItems.find(item => item.title === title);
+            if (item && item.quantity > 1) {
+                item.quantity--;
+                updateCartDisplay();
+                updateCartCount();
+            }
+        }
+
+        incrementButton.addEventListener('click', () => {
+            currentQuantity++;
+            updateQuantityDisplay();
+        });
+
+        function updateQuantityDisplay() {
+            quantityElement.textContent = currentQuantity;
+        }
+
+
+    </script>
+
+</body>
+</html>

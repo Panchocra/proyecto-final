@@ -168,7 +168,7 @@ const productos = [
 ]
 
 //for(let i = 0; i> productos.length ; i++){}
-
+/*
 productos.forEach((prod)=>{
     let card = document.createElement("div")
     card.classList.add("card")
@@ -188,3 +188,31 @@ productos.forEach((prod)=>{
     card.appendChild(h2)
     card.appendChild(p)
 })
+*/
+
+const btn = document.getElementById(`btn`)
+const msj = document.getElementById(`msj`)
+
+btn.addEventListener(`dblclick`,(x)=>{
+msj.style.background = `red`
+})
+btn.addEventListener(`click`,(e)=>{
+    msj.textContent = `el boton ha sido clickeado`
+})
+/*
+function enviarMSJ(){
+console.log(`hola`)
+}*/
+function obtenerDatos() {
+    return new Promise((resolve,reject)=>{
+    setTimeout(()=> {
+        const exito = true;
+
+        if(exito) {
+            resolve(`datos obtenido correctamente`)
+        }  else { reject(`error al obtener datos`)}
+    })
+    })
+}
+
+    obtenerDatos().then((resultado)=>{console.log(resultado)}).catch((error)=>{console.log(error)})

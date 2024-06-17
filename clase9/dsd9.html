@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+            // Crear el botón con createElement
+        const boton = document.createElement("button");
+
+        // Agregar el ID 'btnCarrito' al botón
+        boton.id = "btnCarrito";
+
+        // Agregar el texto "Agregar al carrito" al botón con innerHTML
+        boton.innerHTML = "Agregar al carrito";
+
+        // Agregar un evento de click al botón con addEventListener
+        boton.addEventListener("click", function() {
+        // Crear un nuevo elemento <h3> con createElement
+        const mensaje = document.createElement("h3");
+        
+        // Modificar el texto del botón con innerHTML
+        boton.innerHTML = "Agregado";
+        
+        // Agregar el mensaje al documento
+        mensaje.innerHTML = "Producto agregado al carrito";
+        document.body.appendChild(mensaje);
+});
+
+// Agregar el botón generado al documento con appendChild
+document.body.appendChild(boton);
+    </script>
+
+</body>
+</html>
